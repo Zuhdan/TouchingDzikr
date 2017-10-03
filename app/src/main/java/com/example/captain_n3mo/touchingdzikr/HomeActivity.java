@@ -12,9 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Switch;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        textView = (TextView) findViewById(R.id.touched);
+        textView.setOnClickListener(this);
+        textView.setText("0");
     }
 
     @Override
@@ -97,5 +105,16 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int nowTextView = Integer.parseInt(String.valueOf(textView.getText()));
+        int view = v.getId();
+        switch (view) {
+            case R.id.touched:
+                textView.setText(nowTextView + 1); //todo, error here.
+                break;
+        }
     }
 }
